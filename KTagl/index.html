@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration and Login Form</title>
+ <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="agl.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body ng-app="AuthApp" ng-controller="AuthController">
+  <div class="form-container">
+    <h2>Registration Form</h2>
+    <form name="registrationForm" ng-submit="register()">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" ng-model="user.username" required placeholder="xxxx">
+        <span class="error-message" ng-show="registrationForm.username.$error.required && registrationForm.username.$dirty">Username is required.</span>
+      </div>
+
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" ng-model="user.password" ng-minlength="6" required>
+        <span class="error-message" ng-show="registrationForm.password.$error.required && registrationForm.password.$dirty">Password is required.</span>
+        <span class="error-message" ng-show="registrationForm.password.$error.minlength">Password must be at least 6 characters.</span>
+      </div>
+
+      <div>
+        <label for="repeatPassword">Repeat Password:</label>
+        <input type="password" id="repeatPassword" name="repeatPassword" ng-model="user.repeatPassword" ng-minlength="6" required placeholder="Repeat password">
+        <span class="error-message" ng-show="registrationForm.repeatPassword.$error.required && registrationForm.repeatPassword.$dirty">Repeat Password is required.</span>
+        <span class="error-message" ng-show="registrationForm.repeatPassword.$error.minlength">Repeat Password must be at least 6 characters.</span>
+        <span class="error-message" ng-show="user.password !== user.repeatPassword">Passwords do not match.</span>
+      </div>
+
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" ng-model="user.email" required placeholder="Enter Email">
+        <span class="error-message" ng-show="registrationForm.email.$error.required && registrationForm.email.$dirty">Email is required.</span>
+        <span class="error-message" ng-show="registrationForm.email.$error.email">Please enter a valid email address.</span>
+      </div>
+
+      <div class="button-container">
+        <input type="submit" value="Submit" ng-disabled="registrationForm.$invalid">
+        <input type="button" value="Cancel" ng-click="registrationForm.$setPristine(); registrationForm.$setUntouched(); user = {}">
+      </div>
+    </form>
+
+    <hr>
+
+    <h2>Login Form</h2>
+    <form name="loginForm" ng-submit="login()">
+      <div>
+        <label for="loginEmail">Email Address:</label>
+        <i class="fa-solid fa-user"></i>
+        <input type="email" id="loginEmail" name="loginEmail" ng-model="user.loginEmail" required placeholder="Email address">
+        <span class="error-message" ng-show="loginForm.loginEmail.$error.required && loginForm.loginEmail.$dirty">Email is required.</span>
+        <span class="error-message" ng-show="loginForm.loginEmail.$error.email">Please enter a valid email address.</span>
+      </div>
+
+      <div>
+        <label for="loginPassword">Password:</label>
+        <i class="fa-solid fa-lock" ></i>
+        <input type="password" id="loginPassword" name="loginPassword" ng-model="user.loginPassword" ng-minlength="6" required placeholder="Password">
+        <span class="error-message" ng-show="loginForm.loginPassword.$error.required && loginForm.loginPassword.$dirty">Password is required.</span>
+        <span class="error-message" ng-show="loginForm.loginPassword.$error.minlength">Password must be at least 6 characters.</span>
+      </div>
+
+      <div class="button-container">
+        <input type="submit" value="Login" ng-disabled="loginForm.$invalid">
+      </div>
+    </form>
+  </div>
+</body>
+</html>
